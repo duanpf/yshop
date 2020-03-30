@@ -1,0 +1,403 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.ovf {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.index .tarBarTop {
+  width: 100%;
+  height: 100rpx;
+  border-bottom: 1rpx solid #c5c5c5;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.index .tarBarTop .search {
+    line-height: 60rpx;
+    background-color: #F1F1F1;
+    width: 90%;
+    height: 60%;
+    border-radius: 50rpx;
+    padding: 0 10rpx;
+    font-size: 30rpx;
+    color: #aaaaaa;
+}
+.index .swiper .image {
+  height: 100%;
+  width: 100%;
+}
+.index .new {
+  height: 60rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.index .new .image {
+    width: 20%;
+    height: 50%;
+    position: relative;
+    border-right: 1rpx solid #c5c5c5;
+}
+.index .new .image image {
+      position: absolute;
+      left: 50%;
+      margin-left: -55rpx;
+      height: 100%;
+      width: 70%;
+}
+.index .new .title {
+    color: #666666;
+    padding: 0 20rpx;
+    font-size: 26rpx;
+    width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.index .new .icon {
+    padding-right: 10rpx;
+}
+.index .type-menu {
+  padding: 40rpx 50rpx;
+}
+.index .type-menu .item {
+    text-align: center;
+    font-size: 24rpx;
+}
+.index .type-menu .item text {
+      margin-top: 10rpx;
+}
+.index .type-menu .item .image {
+      margin: 0 auto;
+      width: 80rpx;
+      height: 80rpx;
+}
+.index .list {
+  background-image: url(data:image/png;base64,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);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  min-height: 400rpx;
+  padding: 20rpx 25rpx;
+}
+.index .list .hotTOP {
+    border-bottom: 1px solid #F1F1F1;
+    margin-bottom: 30rpx;
+}
+.index .list .hotTOP .title {
+      color: #FFFFFF;
+      font-size: 24rpx;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+              justify-content: space-between;
+}
+.index .list .hotTOP .title text {
+        font-size: 30rpx;
+        font-weight: 700;
+}
+.index .list .hotTOP .lists-item {
+      margin-top: 30rpx;
+      background-color: #ffffff;
+      padding: 20rpx;
+      border-top-left-radius: 25rpx;
+      border-top-right-radius: 25rpx;
+      min-height: 290rpx;
+}
+.index .list .hotTOP .lists-item .scroll {
+        overflow: hidden;
+        white-space: nowrap;
+        padding-bottom: 10rpx;
+}
+.index .list .hotTOP .lists-item .item {
+        position: relative;
+        display: inline-block;
+        width: 33.33333%;
+        font-size: 26rpx;
+}
+.index .list .hotTOP .lists-item .item .stIcon {
+          position: absolute;
+          z-index: 10;
+          width: 50rpx;
+          height: 50rpx;
+          top: 15rpx;
+          left: 15rpx;
+}
+.index .list .hotTOP .lists-item .item .image {
+          width: 100%;
+          height: 220rpx;
+          border-radius: 10rpx;
+}
+.index .list .hotTOP .lists-item .item .text {
+          width: 100%;
+          margin-top: 10rpx;
+}
+.index .list .hotTOP .lists-item .item .price {
+          font-weight: bolder;
+          color: #73cbb6;
+          margin-top: 10rpx;
+}
+.index .list .hotTOP .lists-item .item + .item {
+        margin-left: 15rpx;
+}
+.index .list .competitive {
+    border-bottom: 1px solid #F1F1F1;
+    margin-bottom: 30rpx;
+}
+.index .list .competitive .title {
+      color: #333333;
+      font-size: 24rpx;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+              justify-content: space-between;
+      text-align: left;
+      position: relative;
+      font-size: 30rpx;
+      font-weight: 700;
+}
+.index .list .competitive .lists-item {
+      margin-top: 30rpx;
+      background-color: #ffffff;
+}
+.index .list .competitive .lists-item .item {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        font-size: 26rpx;
+        padding-bottom: 10rpx;
+}
+.index .list .competitive .lists-item .item .image {
+          width: 200rpx;
+          height: 200rpx;
+          border-radius: 10rpx;
+}
+.index .list .competitive .lists-item .item .right {
+          position: relative;
+          width: 70%;
+          padding-left: 20rpx;
+}
+.index .list .competitive .lists-item .item .right .text {
+            width: 100%;
+            margin-top: 30rpx;
+}
+.index .list .competitive .lists-item .item .right .price {
+            margin-top: 10rpx;
+            font-weight: bolder;
+            color: #73cbb6;
+            margin-top: 10rpx;
+}
+.index .list .competitive .lists-item .item .right .desc {
+            font-size: 24rpx;
+            font-weight: 700;
+            margin-top: 30rpx;
+}
+.index .list .competitive .lists-item .item .right .desc .order {
+              margin-left: 20rpx;
+              font-weight: 500;
+              color: #e1e1e1;
+              font-size: 20rpx;
+}
+.index .list .competitive .lists-item .item .right .image {
+            border: 1px solid #73cbb6;
+            width: 40rpx;
+            height: 40rpx;
+            position: absolute;
+            bottom: 50rpx;
+            border-radius: 50%;
+            right: 20rpx;
+}
+.index .list .competitive .lists-item .item + .item {
+        margin-top: 10rpx;
+}
+.index .list .competitive .lists-item .item + .item .right {
+          border-top: 1px solid #F1F1F1;
+}
+.index .list .new-get {
+    border-bottom: 1px solid #F1F1F1;
+    margin-bottom: 30rpx;
+}
+.index .list .new-get .title {
+      color: #333333;
+      font-size: 24rpx;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+              justify-content: space-between;
+      text-align: left;
+      position: relative;
+      font-size: 30rpx;
+      font-weight: 700;
+}
+.index .list .new-get .title .newIcon {
+        position: absolute;
+        left: 120rpx;
+        top: 0;
+        font-size: 16rpx;
+        color: #73cbb6;
+}
+.index .list .new-get .lists-item {
+      margin-top: 30rpx;
+      background-color: #ffffff;
+      border-top-left-radius: 25rpx;
+      border-top-right-radius: 25rpx;
+}
+.index .list .new-get .lists-item .scroll {
+        overflow: hidden;
+        white-space: nowrap;
+        padding-bottom: 10rpx;
+}
+.index .list .new-get .lists-item .item {
+        position: relative;
+        display: inline-block;
+        width: 33.33333%;
+        font-size: 26rpx;
+        border: 1rpx solid #F8F8F8;
+        text-align: center;
+        border-radius: 10rpx;
+        overflow: hidden;
+}
+.index .list .new-get .lists-item .item .image {
+          width: 100%;
+          height: 240rpx;
+}
+.index .list .new-get .lists-item .item .text {
+          width: 100%;
+          margin-top: 10rpx;
+}
+.index .list .new-get .lists-item .item .price {
+          margin-top: 10rpx;
+          font-weight: bolder;
+          color: #73cbb6;
+}
+.index .list .new-get .lists-item .item + .item {
+        margin-left: 15rpx;
+}
+.index .list .product {
+    border-bottom: 1px solid #F1F1F1;
+    margin-bottom: 30rpx;
+}
+.index .list .product .title {
+      color: #333333;
+      font-size: 24rpx;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+              justify-content: space-between;
+      text-align: left;
+      position: relative;
+      font-size: 30rpx;
+      font-weight: 700;
+}
+.index .list .product .lists-item {
+      margin-top: 30rpx;
+      background-color: #ffffff;
+}
+.index .list .product .lists-item .item {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        font-size: 26rpx;
+        padding-bottom: 10rpx;
+}
+.index .list .product .lists-item .item .image {
+          width: 200rpx;
+          height: 200rpx;
+          border-radius: 10rpx;
+}
+.index .list .product .lists-item .item .right {
+          position: relative;
+          width: 70%;
+          padding-left: 20rpx;
+}
+.index .list .product .lists-item .item .right .text {
+            width: 100%;
+            margin-top: 20rpx;
+}
+.index .list .product .lists-item .item .right .price {
+            font-size: 20rpx;
+            display: inline-block;
+            padding: 10rpx 20rpx;
+            background-color: #73cbb6;
+            margin-top: 10rpx;
+            color: #FFFFFF;
+            margin-top: 20rpx;
+            border-radius: 30rpx 5rpx 30rpx 5rpx;
+}
+.index .list .product .lists-item .item .right .desc {
+            font-size: 24rpx;
+            margin-top: 20rpx;
+            color: #e1e1e1;
+}
+.index .list .product .lists-item .item .right .residue {
+            position: absolute;
+            bottom: 10rpx;
+            border-radius: 50%;
+            right: 20rpx;
+            color: #e1e1e1;
+            font-size: 24rpx;
+}
+.index .list .product .lists-item .item + .item {
+        margin-top: 10rpx;
+}
+.index .list .product .lists-item .item + .item .right {
+          border-top: 1px solid #F1F1F1;
+}
+
