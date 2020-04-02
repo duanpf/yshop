@@ -1,5 +1,5 @@
-// const rootUrl = "http://192.168.0.109:8182/v1" //测试环境
-const rootUrl = "http://47.106.131.165:8182/v1" //上线环境
+const rootUrl = "http://192.168.0.109:8182/v1" //测试环境
+// const rootUrl = "http://47.106.131.165:8182/v1" //上线环境
 module.exports={
 	index(){
 		return uni.request({

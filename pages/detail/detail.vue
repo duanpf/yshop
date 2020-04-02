@@ -58,9 +58,9 @@
 			</view>
 		</view>
 		<!-- 规格 -->
-		<view class="specification">
+		<view class="specification" @click="specButton">
 			<view class="left">
-				<text class="name">优惠券:</text>
+				<text class="name">请选择:</text>
 				<view class="text">
 					黑
 				</view>
@@ -100,18 +100,25 @@
 		</view>
 		<!-- 底部商品栏 -->
 		<uni-goods-nav class="goods" :fill="true"  :options="options" :button-group="buttonGroup"  @click="addLeft" @buttonClick="addButton"></uni-goods-nav>
+		<!-- 产品规格选择 -->
+		<specificationSelection :selectShow="specificationSelectShow"></specificationSelection>
 	</view>
 </template>
 
 <script>
 	import {detail,collect} from "../../APIs/index.js"
+	import specificationSelection from '../../components/specification-selection/specification-selection.vue'
 	export default {
+		components:{
+			specificationSelection
+		},
 		data() {
 			return {
 				id:0,
 				detail:{},
 				collect:{},
 				swActive:0,
+				specificationSelectShow:false,
 				options:[
 					{
 						icon: "",
@@ -138,6 +145,11 @@
 			}
 		},
 		onLoad(option) {
+			// 监听规格收起来
+			uni.$on('defSelectShow',()=>{
+				this.specificationSelectShow=!this.specificationSelectShow
+			})
+			
 			// 加载商品详情
 			this.id = option.id
 			detail(this.id).then(res=>{
@@ -166,6 +178,7 @@
 					phoneNumber:'18950387392'
 				})
 			},
+			// 左侧按钮（收藏和购物车）被点击
 			addLeft(e){
 				if(e.content.text=='收藏'){
 					let type = 'del'
@@ -187,9 +200,20 @@
 				}
 				console.log(e)
 			},
+			// 右侧按钮（添加购物车和立即购买）被点击
 			addButton(e){
+				this.specificationSelectShow=true
 				console.log(e)
 			},
+			// 规格请选择被点击
+			specButton(){
+				this.specificationSelectShow=true
+			}
+		},
+		
+		
+		onUnload() {
+			uni.$off('defSelectShow')
 		}
 	}
 </script>
@@ -381,6 +405,7 @@
 		width: 100%;
 		position: fixed;
 		bottom: 0;
+		z-index: 200;
 	}
 	
 }

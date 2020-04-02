@@ -66,6 +66,7 @@
 <script>
 	import {cart} from "../../APIs/index.js"
 	export default {
+		
 		data() {
 			return {
 				cartList:[],
