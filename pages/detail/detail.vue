@@ -62,7 +62,7 @@
 			<view class="left">
 				<text class="name">请选择:</text>
 				<view class="text">
-					黑
+					{{specText}}
 				</view>
 			</view>
 			<view class="icon">
@@ -101,12 +101,12 @@
 		<!-- 底部商品栏 -->
 		<uni-goods-nav class="goods" :fill="true"  :options="options" :button-group="buttonGroup"  @click="addLeft" @buttonClick="addButton"></uni-goods-nav>
 		<!-- 产品规格选择 -->
-		<specificationSelection :selectShow="specificationSelectShow"></specificationSelection>
+		<specificationSelection :selectShow="specificationSelectShow" :specification="specification"></specificationSelection>
 	</view>
 </template>
 
 <script>
-	import {detail,collect} from "../../APIs/index.js"
+	import {detail,collect,cartAdd} from "../../APIs/index.js"
 	import specificationSelection from '../../components/specification-selection/specification-selection.vue'
 	export default {
 		components:{
@@ -114,12 +114,13 @@
 		},
 		data() {
 			return {
-				id:0,
-				detail:{},
-				collect:{},
-				swActive:0,
-				specificationSelectShow:false,
-				options:[
+				id:0,//商品id
+				detail:{},//商品详情对象
+				collect:{},//收藏商品的对象
+				swActive:0,//轮播图片当前显示的图片索引
+				specificationSelectShow:false,//商品规格选择弹窗是否显示
+				specification:[],//商品所有规格信息
+				options:[//底部左侧按钮
 					{
 						icon: "",
 						text: '收藏',
@@ -130,7 +131,8 @@
 						info: 0
 					}
 				],
-				buttonGroup:[
+				
+				buttonGroup:[//底部右侧按钮
 					{
 						text: '加入购物车',
 						backgroundColor: '#fea10f',
@@ -141,7 +143,9 @@
 						backgroundColor: '#73cbb6',
 						color: '#fff'
 					}
-				]
+				],
+				specs:{},//用户选择的规格对象
+				specText:'',//页面展示的规格
 			}
 		},
 		onLoad(option) {
@@ -149,30 +153,22 @@
 			uni.$on('defSelectShow',()=>{
 				this.specificationSelectShow=!this.specificationSelectShow
 			})
+			// 监听规格改变数据
+			uni.$on('setSpecSelect',(params)=>{
+				this.specs=params
+				let specArr=[]
+				params.att.map(item=>{
+					specArr.push(item.name)
+				})
+				this.specText = specArr.join(',')
+			})
 			
 			// 加载商品详情
 			this.id = option.id
-			detail(this.id).then(res=>{
-				let [err,{data}] = res
-				if(data.code==1){
-					this.detail = data.data.detail
-					this.collect=data.data.collect
-					this.options[1].info = data.data.cartNum
-					if(this.collect.code==-1){
-						this.options[0].icon = "http://yshop.bolefx.xyz/static/img/detail/collect.png"
-					}else{
-						this.options[0].icon = "http://yshop.bolefx.xyz/static/img/detail/collect_active.png"
-					}
-				}else{
-					uni.showToast({
-						title:data.msg,
-						icon:"none"
-					})
-					uni.navigateBack()
-				}
-			})
+			this.loadMore()
 		},
 		methods: {
+			// 手机被点击
 			phone(){
 				uni.makePhoneCall({
 					phoneNumber:'18950387392'
@@ -198,22 +194,78 @@
 						url:"../cart/cart"
 					})
 				}
-				console.log(e)
+				// console.log(e)
 			},
 			// 右侧按钮（添加购物车和立即购买）被点击
 			addButton(e){
-				this.specificationSelectShow=true
-				console.log(e)
+				if(this.specificationSelectShow){
+					console.log(this.specs)
+					let {num,att} = this.specs
+					let spec = []
+					att.map(item=>{
+						spec.push(item.id)
+					})
+					this.addCart({
+						sid:this.id,
+						num,
+						specs:JSON.stringify(spec)
+					})
+				}else{
+					this.specificationSelectShow=true
+				}
 			},
 			// 规格请选择被点击
 			specButton(){
 				this.specificationSelectShow=true
+			},
+			// 添加购物车函数
+			addCart(params){
+				cartAdd(params)
+				.then(res=>{
+					let [err,{data}] = res;
+					if(data.code==1){
+						uni.showToast({
+							title:data.msg
+						})
+						this.loadMore()
+						this.specificationSelectShow=false
+					}else{
+						uni.showToast({
+							title:data.msg,
+							icon:"none",
+						})
+						
+					}
+				})
+			},
+			// loadMore 初始化
+			loadMore(){
+				detail(this.id).then(res=>{
+					let [err,{data}] = res
+					if(data.code==1){
+						this.detail = data.data.detail
+						this.collect=data.data.collect
+						this.options[1].info = data.data.cartNum
+						if(this.collect.code==-1){
+							this.options[0].icon = "http://yshop.bolefx.xyz/static/img/detail/collect.png"
+						}else{
+							this.options[0].icon = "http://yshop.bolefx.xyz/static/img/detail/collect_active.png"
+						}
+					}else{
+						uni.showToast({
+							title:data.msg,
+							icon:"none"
+						})
+						uni.navigateBack()
+					}
+				})
 			}
 		},
 		
 		
 		onUnload() {
 			uni.$off('defSelectShow')
+			uni.$off('setSpecSelect')
 		}
 	}
 </script>

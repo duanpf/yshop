@@ -109,7 +109,7 @@
     "h5" : {
         "title" : "yshop",
         "router" : {
-            "mode" : "history"
+            "mode" : "hash"
         },
         "domain" : "yshop.bolefx.xyz"
     }

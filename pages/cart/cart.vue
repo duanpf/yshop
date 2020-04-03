@@ -32,14 +32,17 @@
 			<checkbox-group name="" class="list" @change="setItem">
 				<scroll-view scroll-y="true" class="scroll">
 					<view class="item" v-for="(item,index) in cartList" :key="index">
-						<checkbox :value="index.toString()" :checked="item.check" class="checkbox"/>
+						<checkbox :value="index.toString()" :checked="item.check" data-id = '66' class="checkbox"/>
 						<image class="image" :src="item.image" mode=""></image>
 						<view class="desc">
-							<view class="title">70gA4黑白打印复印</view>
+							<view class="title">{{item.store_name}}</view>
+							<view class="property">
+								属性：{{item.spec.attText}}
+							</view>
 							<view class="price">￥{{item.price}}</view>
 						</view>
 						<view class="nums">
-							<uni-number-box :min="1" :value="item.cNum" @change="setNum(index,$event)"></uni-number-box>
+							<uni-number-box :min="1" :value="item.cNum" @change="setNum(index,item.cid,$event)"></uni-number-box>
 						</view>
 					</view>
 					<view class="dd"></view>
@@ -64,7 +67,7 @@
 </template>
 
 <script>
-	import {cart} from "../../APIs/index.js"
+	import {cart,setCartNum} from "../../APIs/index.js"
 	export default {
 		
 		data() {
@@ -82,6 +85,7 @@
 			this.loadMore()
 		},
 		methods:{
+			// 初始化
 			loadMore(){
 				cart().then(res=>{
 					let [err,{data}]=res;
@@ -100,17 +104,26 @@
 							item.check = false
 							return item;
 						})
+						console.log(this)
 						this.cartList = data.data
 					}
 				})
 			},
+			// 商品被选择
 			setItem(e){
+				
 				let pitchOnArr = e.detail.value
+				this.cartList.map(item=>{
+					return item.check=false
+				})
+				pitchOnArr.map(item=>{
+					this.cartList[item].check=true
+				})
 				this.pitchOnNum = pitchOnArr.length
 				this.allCheck=this.pitchOnNum==this.cartList.length?true:false
 				this.countPriceNum()
-				console.log(55)
 			},
+			// 全选被点击
 			setAllCheck(e){
 				let pitchOnArr = e.detail.value
 				if(pitchOnArr.length){
@@ -126,10 +139,36 @@
 				}
 				this.countPriceNum()
 			},
-			setNum(index,e){
-				// console.log(this.cartList)
-				// console.log(index,e)
+			// 购物车数量改变
+			setNum(index,cid,e){
+				let num =parseInt(e)
+				if(this.cartList[index].cNum>num){
+					setCartNum('minus',cid).then(res=>{
+						let [err,{data}] = res
+						if(data.code!=1){
+							uni.showToast({
+								title:data.msg,
+								icon:"none"
+							})
+						}
+					})
+				}else{
+					setCartNum('plus',cid).then(res=>{
+						let [err,{data}] = res
+						if(data.code!=1){
+							uni.showToast({
+								title:data.msg,
+								icon:"none"
+							})
+						}
+					})
+				}
+				
+				
+				this.cartList[index].cNum = num
+				this.countPriceNum()
 			},
+			// 刷新总价
 			countPriceNum(){
 				let count = 0
 				this.cartList.map(item=>{
@@ -217,7 +256,18 @@
 					.desc{
 						font-size: 28upx;
 						.title{
-							margin-bottom: 15upx;
+							margin-bottom: 10upx;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+						}
+						.property{
+							font-size: 24upx;
+							color: $color-gray;
+							margin-bottom: 10upx;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
 						}
 					}
 					.nums{
